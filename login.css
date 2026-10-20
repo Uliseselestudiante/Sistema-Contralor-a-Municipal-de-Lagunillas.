@@ -1,0 +1,223 @@
+:root {
+    --azul-cml: #00205B;
+    --amarillo-cml: #FCD116;
+    --rojo-cml: #D9001B;
+    --gris-oscuro: #0b1220;
+    --blanco: #ffffff;
+    --negro: #000000;
+    --gris-texto: #8f8f8f;
+    --gris-fondo: #1e293b;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: var(--gris-oscuro);
+}
+
+.box {
+    position: relative;
+    width: 320px;
+    background: #1c1c1c;
+    border-radius: 8px;
+    overflow: hidden;
+    padding: 3px;
+}
+
+.box::before, .box::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 320px;
+    height: 450px;
+    background: linear-gradient(0deg, transparent, var(--rojo-cml), var(--rojo-cml));
+    transform-origin: bottom right;
+    animation: animate 6s linear infinite;
+    z-index: 0;
+}
+
+.box::after { animation-delay: -3s; }
+
+@keyframes animate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+form {
+    position: relative;
+    background: var(--gris-fondo);
+    border-radius: 5px;
+    z-index: 10;
+    padding: 25px 25px;
+    display: flex;
+    flex-direction: column;
+}
+
+.header-login { 
+    text-align: center; 
+    margin-bottom: 15px;
+}
+.logo-login { 
+    width: 65px;
+    margin-bottom: 8px;
+}
+.header-login h2 { 
+    color: var(--amarillo-cml); 
+    font-size: 1em;
+    letter-spacing: 0.05em;
+}
+.subtitle { font-size: 0.75em; color: var(--blanco); opacity: 0.8; }
+
+.inputBox {
+    position: relative;
+    width: 100%;
+    margin-bottom: 12px;
+}
+
+.inputBox input, .inputBox select {
+    width: 100%;
+    padding: 10px 12px;
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid var(--gris-texto);
+    border-radius: 0;
+    color: var(--blanco);
+    font-size: 0.9em;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.inputBox input::placeholder {
+    color: var(--gris-texto);
+}
+
+.inputBox select {
+    color: var(--gris-texto);
+    cursor: pointer;
+}
+
+.inputBox select:focus, .inputBox select:valid {
+    color: var(--blanco);
+}
+
+.inputBox select option {
+    background-color: var(--gris-fondo);
+    color: var(--blanco);
+}
+
+.inputBox input:focus, .inputBox select:focus {
+    border-bottom-color: var(--amarillo-cml);
+}
+
+.inputBox .toggle-password {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--gris-texto);
+    cursor: pointer;
+    z-index: 11;
+    transition: color 0.3s;
+}
+
+.inputBox .toggle-password:hover {
+    color: var(--blanco);
+}
+
+.inputBox:has(input[type="password"]) input {
+    padding-right: 40px;
+}
+
+input[type="submit"] {
+    background: var(--azul-cml);
+    color: white;
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    border: none;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 0.85em;
+    transition: 0.3s;
+}
+
+input[type="submit"]:hover { background: #003399; }
+
+.links { 
+    display: flex; 
+    justify-content: space-between; 
+    margin-top: 8px;
+    font-size: 0.7em;
+}
+.links a { color: #8f8f8f; text-decoration: none; }
+.links a:hover { color: var(--amarillo-cml); }
+
+.hidden-form {
+    display: none !important;
+}
+
+.box.show {
+    display: block;
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+.close-btn {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    color: #8f8f8f;
+    cursor: pointer;
+    font-size: 1em;
+    z-index: 20;
+    transition: color 0.3s, transform 0.3s;
+}
+.close-btn:hover {
+    color: var(--rojo-cml);
+    transform: rotate(90deg);
+}
+
+.notification-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+}
+
+.notification {
+    padding: 12px 18px;
+    border-radius: 8px;
+    color: var(--blanco);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    transform: translateX(400px);
+    opacity: 0;
+    transition: transform 0.4s ease, opacity 0.4s ease;
+    font-size: 0.9em;
+}
+
+.notification.show {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+.notification.success { background-color: #28a745; }
+.notification.error { background-color: #dc3545; }
